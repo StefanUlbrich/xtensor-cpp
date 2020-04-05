@@ -1,0 +1,20 @@
+[submodule "xtensor"]
+	path = xtensor
+	url = https://github.com/xtensor-stack/xtensor.git
+	branch = master
+[submodule "xtl"]
+	path = xtl
+	url = https://github.com/xtensor-stack/xtl.git
+	branch = master
+[submodule "xsimd"]
+	path = xsimd
+	url = https://github.com/xtensor-stack/xsimd.git
+	branch = master
+[submodule "pybind11"]
+	path = pybind11
+	url = https://github.com/pybind/pybind11.git
+	branch = master
+[submodule "xtensor-python"]
+	path = xtensor-python
+	url = https://github.com/xtensor-stack/xtensor-python.git
+	branch = master
