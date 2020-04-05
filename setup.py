@@ -5,7 +5,7 @@
 from setuptools import setup
 from distutils.command.install_headers import install_headers
 from distutils.command.build_py import build_py
-from xtensor_python import __version__
+from xtensor_cpp import __version__
 import os
 
 
@@ -26,13 +26,13 @@ def get_files(root_dirs):
                 trgt.append(rel_file)
     return src, trgt
 
-source, target = get_files(
+source, target = get_files([
     'xtensor/include',
     'xtensor-python/include',
     'xsimd/include',
     'xtl/include',
-    'pybind11/include',
-)
+    'pybind11/include'
+])
 
 
 # package_data = [
@@ -71,12 +71,14 @@ source, target = get_files(
 
 # Install the headers inside the package as well
 class BuildPy(build_py):
+
     def build_package_data(self):
         build_py.build_package_data(self)
-        for src, trgt in zip(source,target):
-            target = os.path.join(self.build_lib, 'xtensor_cpp', trgt)
-            self.mkpath(os.path.dirname(target))
-            self.copy_file(src, target, preserve_mode=False)
+        for src, trgt in zip(source, target):
+            temp = os.path.join(self.build_lib, 'xtensor_cpp', 'include', trgt)
+            self.mkpath(os.path.dirname(temp))
+            print("temp:", temp)
+            self.copy_file(src, temp, preserve_mode=False)
 
 
 setup(
@@ -91,7 +93,8 @@ setup(
     license='BSD',
     # headers=headers,
     zip_safe=False,
-    cmdclass=dict(install_headers=InstallHeaders, build_py=BuildPy),
+    cmdclass=dict(build_py=BuildPy),
+    # cmdclass=dict(install_headers=InstallHeaders, build_py=BuildPy),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
